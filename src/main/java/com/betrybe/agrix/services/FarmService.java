@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.dtos.FarmCreationDto;
 import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.entities.Farm;
 import com.betrybe.agrix.exceptions.FarmNotFoundException;
@@ -37,8 +38,12 @@ public class FarmService {
    * @param farm the farm
    * @return the entity farm
    */
-  public Farm insertFarm(Farm farm) {
-    return farmRepository.save(farm);
+  public Farm insertFarm(FarmCreationDto farm) {
+    Farm newFarm = new Farm();
+
+    newFarm.setName(farm.name());
+    newFarm.setSize(farm.size());
+    return farmRepository.save(newFarm);
   }
 
   /**
@@ -81,7 +86,7 @@ public class FarmService {
     Crop newCrop = cropRepository.save(crop);
     farm.getCrops().add(newCrop);
 
-    this.insertFarm(farm);
+    crop.setFarm(farm);
 
     return newCrop;
   }

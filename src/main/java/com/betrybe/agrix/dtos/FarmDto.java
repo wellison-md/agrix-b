@@ -12,7 +12,7 @@ public record FarmDto(Long id, String name, Double size) {
    *
    * @return the farm
    */
-  public Farm toFarm() {
-    return new Farm(id, name, size);
-  }
+//  public Farm toFarm() {
+//    return new Farm(id, name, size);
+//  }
 }

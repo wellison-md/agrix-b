@@ -2,6 +2,7 @@ package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.dtos.CropDto;
 import com.betrybe.agrix.dtos.DtoConverter;
+import com.betrybe.agrix.dtos.FarmCreationDto;
 import com.betrybe.agrix.dtos.FarmDto;
 import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.entities.Farm;
@@ -44,12 +45,12 @@ public class FarmController {
    * @return the response entity
    */
   @PostMapping
-  public ResponseEntity<Farm> createFarm(@RequestBody FarmDto newFarm) {
-    Farm farm = DtoConverter.dtoToModel(newFarm);
+  public ResponseEntity<Farm> createFarm(@RequestBody FarmCreationDto newFarm) {
+    Farm farm = farmService.insertFarm(newFarm);
 
     return ResponseEntity
         .status(HttpStatus.CREATED)
-        .body(farmService.insertFarm(newFarm.toFarm()));
+        .body(farmService.insertFarm(newFarm));
   }
 
   /**
