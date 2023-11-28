@@ -99,7 +99,10 @@ public class FarmController {
         crop.getId(),
         crop.getName(),
         crop.getPlantedArea(),
-        farmId);
+        farmId,
+        crop.getPlantedDate(),
+        crop.getHarvestDate()
+    );
     return ResponseEntity.status(HttpStatus.CREATED).body(newCropDto);
   }
 
@@ -117,7 +120,9 @@ public class FarmController {
             crop.getId(),
             crop.getName(),
             crop.getPlantedArea(),
-            farmId))
+            farmId,
+            crop.getPlantedDate(),
+            crop.getHarvestDate()))
         .toList();
     return ResponseEntity.ok(cropDtoList);
   }

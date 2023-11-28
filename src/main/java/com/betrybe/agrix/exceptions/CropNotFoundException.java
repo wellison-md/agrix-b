@@ -1,4 +1,4 @@
-package com.betrybe.agrix.controllers;
+package com.betrybe.agrix.exceptions;
 
 /**
  * The type Crop not found exception.

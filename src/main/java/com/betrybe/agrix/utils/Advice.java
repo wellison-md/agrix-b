@@ -1,5 +1,7 @@
 package com.betrybe.agrix.utils;
 
+import com.betrybe.agrix.exceptions.CropNotFoundException;
+import com.betrybe.agrix.exceptions.FarmNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,8 +20,8 @@ public class Advice {
    * @param exceptions the exceptions
    * @return the response entity
    */
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<String> handleFarmNotFound(RuntimeException exceptions) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não encontrada!");
+  @ExceptionHandler({FarmNotFoundException.class, CropNotFoundException.class})
+  public ResponseEntity<String> handleNotFoundException(RuntimeException exceptions) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptions.getMessage());
   }
 }
