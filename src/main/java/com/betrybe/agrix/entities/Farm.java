@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -28,6 +31,14 @@ public class Farm {
   @JsonIgnore
   private List<Crop> crops;
 
+  @ManyToMany
+  @JoinTable(
+      name = "crop_fertilizer",
+      joinColumns = @JoinColumn(name = "farm_id"),
+      inverseJoinColumns = @JoinColumn(name = "fertilizer_id")
+  )
+  @JsonIgnore
+  private List<Fertilizer> fertilizers;
 
   /**
    * Instantiates a new Farm.
@@ -37,14 +48,16 @@ public class Farm {
   /**
    * Instantiates a new Farm.
    *
-   * @param id   the id
-   * @param name the name
-   * @param size the size
+   * @param id          the id
+   * @param name        the name
+   * @param size        the size
+   * @param fertilizers the fertilizers
    */
-  public Farm(Long id, String name, Double size) {
+  public Farm(Long id, String name, Double size, List<Fertilizer> fertilizers) {
     this.id = id;
     this.name = name;
     this.size = size;
+    this.fertilizers = fertilizers;
   }
 
   /**
@@ -117,5 +130,23 @@ public class Farm {
    */
   public void setCrops(List<Crop> crops) {
     this.crops = crops;
+  }
+
+  /**
+   * Gets fertilizers.
+   *
+   * @return the fertilizers
+   */
+  public List<Fertilizer> getFertilizers() {
+    return fertilizers;
+  }
+
+  /**
+   * Sets fertilizers.
+   *
+   * @param fertilizers the fertilizers
+   */
+  public void setFertilizers(List<Fertilizer> fertilizers) {
+    this.fertilizers = fertilizers;
   }
 }
