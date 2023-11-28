@@ -79,6 +79,12 @@ public class FertilizerController {
     return ResponseEntity.status(HttpStatus.OK).body(fertilizerResponseDtoList);
   }
 
+  /**
+   * Gets fertilizer by id.
+   *
+   * @param id the id
+   * @return the fertilizer by id
+   */
   @GetMapping("/{id}")
   public ResponseEntity<FertilizerResponseDto> getFertilizerById(@PathVariable Long id) {
     Optional<Fertilizer> optionalFertilizer = fertilizerService.getFertilizerById(id);
