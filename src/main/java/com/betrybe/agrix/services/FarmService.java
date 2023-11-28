@@ -2,9 +2,9 @@ package com.betrybe.agrix.services;
 
 import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.entities.Farm;
+import com.betrybe.agrix.exceptions.FarmNotFoundException;
 import com.betrybe.agrix.repositories.CropRepository;
 import com.betrybe.agrix.repositories.FarmRepository;
-import com.betrybe.agrix.utils.Exception;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class FarmService {
     Optional<Farm> farm = farmRepository.findById(id);
 
     if (farm.isEmpty()) {
-      throw new Exception();
+      throw new FarmNotFoundException();
     }
 
     return farm.get();

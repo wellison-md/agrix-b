@@ -2,6 +2,7 @@ package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.dtos.CropDto;
 import com.betrybe.agrix.entities.Crop;
+import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.services.CropService;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,9 @@ public class CropController {
             crop.getId(),
             crop.getName(),
             crop.getPlantedArea(),
-            crop.getFarm().getId()))
+            crop.getFarm().getId(),
+            crop.getPlantedDate(),
+            crop.getHarvestDate()))
         .collect(Collectors.toList());
   }
 
@@ -70,7 +73,9 @@ public class CropController {
         crop.getId(),
         crop.getName(),
         crop.getPlantedArea(),
-        crop.getFarm().getId()
+        crop.getFarm().getId(),
+        crop.getPlantedDate(),
+        crop.getHarvestDate()
     );
 
     return ResponseEntity.ok().body(cropResponseDto);

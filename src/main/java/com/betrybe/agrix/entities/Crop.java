@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 
 /**
  * The type Crop.
@@ -24,27 +25,12 @@ public class Crop {
   @Column(name = "planted_area")
   private Double plantedArea;
 
+  private LocalDate plantedDate;
+  private LocalDate harvestDate;
+
   @ManyToOne
   @JoinColumn(name = "farm_id")
   private Farm farm;
-
-  /**
-   * Gets farm.
-   *
-   * @return the farm
-   */
-  public Farm getFarm() {
-    return farm;
-  }
-
-  /**
-   * Sets farm.
-   *
-   * @param farm the farm
-   */
-  public void setFarm(Farm farm) {
-    this.farm = farm;
-  }
 
   /**
    * Instantiates a new Crop.
@@ -57,12 +43,17 @@ public class Crop {
    * @param id          the id
    * @param name        the name
    * @param plantedArea the planted area
+   * @param plantedDate the planted date
+   * @param harvestDate the harvest date
    * @param farm        the farm
    */
-  public Crop(Long id, String name, double plantedArea, Farm farm) {
+  public Crop(Long id, String name, double plantedArea,  Farm farm, LocalDate plantedDate,
+      LocalDate harvestDate) {
     this.id = id;
     this.name = name;
     this.plantedArea = plantedArea;
+    this.plantedDate = plantedDate;
+    this.harvestDate = harvestDate;
     this.farm = farm;
   }
 
@@ -107,7 +98,7 @@ public class Crop {
    *
    * @return the planted area
    */
-  public double getPlantedArea() {
+  public Double getPlantedArea() {
     return plantedArea;
   }
 
@@ -116,7 +107,61 @@ public class Crop {
    *
    * @param plantedArea the planted area
    */
-  public void setPlantedArea(double plantedArea) {
+  public void setPlantedArea(Double plantedArea) {
     this.plantedArea = plantedArea;
+  }
+
+  /**
+   * Gets planted date.
+   *
+   * @return the planted date
+   */
+  public LocalDate getPlantedDate() {
+    return plantedDate;
+  }
+
+  /**
+   * Sets planted date.
+   *
+   * @param plantedDate the planted date
+   */
+  public void setPlantedDate(LocalDate plantedDate) {
+    this.plantedDate = plantedDate;
+  }
+
+  /**
+   * Gets harvest date.
+   *
+   * @return the harvest date
+   */
+  public LocalDate getHarvestDate() {
+    return harvestDate;
+  }
+
+  /**
+   * Sets harvest date.
+   *
+   * @param harvestDate the harvest date
+   */
+  public void setHarvestDate(LocalDate harvestDate) {
+    this.harvestDate = harvestDate;
+  }
+
+  /**
+   * Gets farm.
+   *
+   * @return the farm
+   */
+  public Farm getFarm() {
+    return farm;
+  }
+
+  /**
+   * Sets farm.
+   *
+   * @param farm the farm
+   */
+  public void setFarm(Farm farm) {
+    this.farm = farm;
   }
 }
