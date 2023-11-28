@@ -4,6 +4,7 @@ import com.betrybe.agrix.dtos.FertilizerCreationDto;
 import com.betrybe.agrix.entities.Fertilizer;
 import com.betrybe.agrix.repositories.FertilizerRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,16 @@ public class FertilizerService {
    */
   public List<Fertilizer> getAllFertilizers() {
     return fertilizerRepository.findAll();
+  }
+
+  /**
+   * Gets fertilizer by id.
+   *
+   * @param id the id
+   * @return the fertilizer by id
+   */
+  public Optional<Fertilizer> getFertilizerById(Long id) {
+    return fertilizerRepository.findById(id);
   }
 }
 
