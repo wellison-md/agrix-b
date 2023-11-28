@@ -4,14 +4,17 @@ import com.betrybe.agrix.dtos.CropDto;
 import com.betrybe.agrix.entities.Crop;
 import com.betrybe.agrix.exceptions.CropNotFoundException;
 import com.betrybe.agrix.services.CropService;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -79,5 +82,38 @@ public class CropController {
     );
 
     return ResponseEntity.ok().body(cropResponseDto);
+  }
+
+  /**
+   * Gets crop by harvest date.
+   *
+   * @param start the start
+   * @param end   the end
+   * @return the crop by harvest date
+   */
+  @GetMapping("/search")
+  public ResponseEntity<List<CropDto>> getCropByHarvestDate(
+      @RequestParam("start") LocalDate start,
+      @RequestParam("end") LocalDate end
+  ) {
+    Optional<List<Crop>> crops = cropService.getCropByHarvestDate(start, end);
+
+    if (crops.isEmpty()) {
+      throw new CropNotFoundException();
+    }
+
+    List<Crop> getCrops = crops.get();
+
+    List<CropDto> responseCrops = getCrops.stream()
+        .map((crop) -> new CropDto(
+            crop.getId(),
+            crop.getName(),
+            crop.getPlantedArea(),
+            crop.getFarm().getId(),
+            crop.getPlantedDate(),
+            crop.getHarvestDate()))
+        .collect(Collectors.toList());
+
+    return ResponseEntity.status(HttpStatus.OK).body(responseCrops);
   }
 }
