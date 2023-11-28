@@ -3,26 +3,35 @@ package com.betrybe.agrix.services;
 import com.betrybe.agrix.dtos.FertilizerCreationDto;
 import com.betrybe.agrix.entities.Fertilizer;
 import com.betrybe.agrix.repositories.FertilizerRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
- * Service da classe Fertilizer.
+ * The type Fertilizer service.
  */
 @Service
 public class FertilizerService {
   private FertilizerRepository fertilizerRepository;
 
+
   /**
-   * Construtor da classe.
+   * Instantiates a new Fertilizer service.
+   *
+   * @param fertilizerRepository the fertilizer repository
    */
   @Autowired
   public FertilizerService(FertilizerRepository fertilizerRepository) {
     this.fertilizerRepository = fertilizerRepository;
   }
 
+
   /**
-   * Método de criação de um fertilizer.
+   * Save fertilizer fertilizer.
+   *
+   * @param fertilizer the fertilizer
+   * @return the fertilizer
    */
   public Fertilizer saveFertilizer(FertilizerCreationDto fertilizer) {
     Fertilizer newFertilizer = new Fertilizer();
@@ -32,6 +41,15 @@ public class FertilizerService {
     newFertilizer.setComposition(fertilizer.composition());
 
     return fertilizerRepository.save(newFertilizer);
+  }
+
+  /**
+   * Gets all fertilizers.
+   *
+   * @return the all fertilizers
+   */
+  public List<Fertilizer> getAllFertilizers() {
+    return fertilizerRepository.findAll();
   }
 }
 
